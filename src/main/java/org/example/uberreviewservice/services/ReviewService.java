@@ -11,18 +11,19 @@ import java.rmi.Remote;
 public class ReviewService  implements CommandLineRunner {
 
     private ReviewRepository reviewRepository;
-
     public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
+
     @Override
     public void run(String... args) throws Exception {
         System.out.println("**********************************");
-        Review r = Review.builder()  // by this line we are creating the object to insert
-                .content("This is a review")
-                .rating((double) 22)
-                .build();
-        reviewRepository.save(r);  // now this line will execute the sql query
+//        Review r = Review.builder()  // by this line we are creating the object to insert
+//                .content("This is a review")
+//                .rating((double) 22)
+//                .build();
+//        reviewRepository.save(r);  // now this line will execute the sql query
+        reviewRepository.deleteById(2L);
 
     }
 }

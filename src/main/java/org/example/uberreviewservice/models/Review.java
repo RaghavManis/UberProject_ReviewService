@@ -14,13 +14,11 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
+
 @Entity
 @Table(name = "bookingreview")
-public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Recommended for JPA entities due to its ability to hold null values.
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Review extends BaseModel{
 
     @Column(nullable = false)
     private String content;
@@ -28,13 +26,5 @@ public class Review {
     @Column(nullable = false)
     private Double rating;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
 
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
 }

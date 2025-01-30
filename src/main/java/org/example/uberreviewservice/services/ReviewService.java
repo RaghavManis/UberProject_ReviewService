@@ -30,7 +30,7 @@ public class ReviewService  implements CommandLineRunner {
                 .build();
 //        reviewRepository.deleteById(2L);
         Booking b = Booking.builder()
-                            .startTine(new Date())
+                            .startTime(new Date())
                             .review(r)
                             .build();
 

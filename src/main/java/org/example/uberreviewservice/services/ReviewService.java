@@ -1,6 +1,8 @@
 package org.example.uberreviewservice.services;
 
+import jakarta.transaction.Transactional;
 import org.example.uberreviewservice.models.Booking;
+import org.example.uberreviewservice.models.Driver;
 import org.example.uberreviewservice.models.Review;
 import org.example.uberreviewservice.repositories.BookingRepository;
 import org.example.uberreviewservice.repositories.DriverRepository;
@@ -10,9 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.rmi.Remote;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReviewService  implements CommandLineRunner {
@@ -27,6 +27,7 @@ public class ReviewService  implements CommandLineRunner {
     }
 
     @Override
+//    @Transactional
     public void run(String... args) throws Exception {
         System.out.println("**********************************");
 //        Review r = Review.builder()  // by this line we are creating the object to insert
@@ -46,10 +47,20 @@ public class ReviewService  implements CommandLineRunner {
 //        Booking booking = bookingRepository.findByIdAndDriverId(1L, 1L) ;
 //        System.out.println("---->" + booking.getTotalDistance());
 
-        List<Booking> bookings = bookingRepository.findByDriverId(1L) ;
-        for (Booking booking : bookings) {
-            System.out.println("---> " + booking);
+//        List<Booking> bookings = bookingRepository.findByDriverId(1L) ;
+//        for (Booking booking : bookings) {
+//            System.out.println("---> " + booking);
+//        }
+        List<Long> driversId = new ArrayList<>(Arrays.asList(1L, 2L, 3L, 4L, 5L));
+        List<Driver> driverList = driverRepository.findAllByIdIn(driversId) ;
+//        List<Booking> bookingList = bookingRepository.findAllByDriverIn(driverList) ;
+        for(Driver driver : driverList){
+            List<Booking> bookingList =  (bookingRepository.findByDriverId(driver.getId()));
+            for(Booking booking : bookingList){
+                System.out.println(booking.getId());
+            }
         }
+
 
     }
 }

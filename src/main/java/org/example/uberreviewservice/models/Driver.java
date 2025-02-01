@@ -1,9 +1,9 @@
 package org.example.uberreviewservice.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -15,10 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 public class Driver extends BaseModel {
 
-    @OneToMany(mappedBy = "driver")
+    @OneToMany(mappedBy = "driver" , fetch = FetchType.LAZY)
+//    @Fetch(FetchMode.SUBSELECT)
     private List<Booking> bookings;
 
+    @Column
     private String name;
 
+    @Column
     private String license;
 }

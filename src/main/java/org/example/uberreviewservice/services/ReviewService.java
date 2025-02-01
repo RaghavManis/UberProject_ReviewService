@@ -27,7 +27,7 @@ public class ReviewService  implements CommandLineRunner {
     }
 
     @Override
-//    @Transactional
+    @Transactional
     public void run(String... args) throws Exception {
         System.out.println("**********************************");
 //        Review r = Review.builder()  // by this line we are creating the object to insert
@@ -53,13 +53,19 @@ public class ReviewService  implements CommandLineRunner {
 //        }
         List<Long> driversId = new ArrayList<>(Arrays.asList(1L, 2L, 3L, 4L, 5L));
         List<Driver> driverList = driverRepository.findAllByIdIn(driversId) ;
-        List<Booking> bookingList = bookingRepository.findAllByDriverIn(driverList) ;
-//        for(Driver driver : driverList){
+//        List<Booking> bookingList = bookingRepository.findAllByDriverIn(driverList) ;
+        for(Driver driver : driverList){
+            // this will execute again N+1 Querry even if you have used @transaction and fetch=subselect in driver entity
 //            List<Booking> bookingList =  (bookingRepository.findByDriverId(driver.getId()));
-            for(Booking booking : bookingList){
+//            for(Booking booking : bookingList){
+//                System.out.println(booking.getId());
+//            }
+
+            List<Booking> bookings = driver.getBookings();
+            for(Booking booking : bookings){
                 System.out.println(booking.getId());
             }
-//        }
+        }
 
 
     }

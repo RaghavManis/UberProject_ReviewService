@@ -16,7 +16,10 @@ import java.util.List;
 public class Driver extends BaseModel {
 
     @OneToMany(mappedBy = "driver" , fetch = FetchType.LAZY)
-//    @Fetch(FetchMode.SUBSELECT)
+    // instead of using this(SUBSELECT) we van also use fetch as eager and our work will be done in a single query but
+    // if we do that then it is not necessary that we always need eager manner , we need eager manner at only some
+    // places then due to one need only why we disturb all the needs by increasing their executing time and memory
+    @Fetch(FetchMode.SUBSELECT)
     private List<Booking> bookings;
 
     @Column

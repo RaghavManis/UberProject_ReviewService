@@ -1,5 +1,6 @@
 package org.example.uberreviewservice.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,13 +15,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class Booking extends BaseModel {
 
-    @OneToOne(cascade = {CascadeType.PERSIST , CascadeType.REMOVE }, fetch = FetchType.LAZY)
-    private Review review;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST , CascadeType.REMOVE } , fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
+//    @JsonBackReference
     private Driver driver;
 
     @ManyToOne(cascade = {CascadeType.PERSIST , CascadeType.REMOVE} , fetch = FetchType.LAZY)
+//    @JsonBackReference
     private Passenger passenger;
 
     @Enumerated(value = EnumType.STRING)

@@ -1,72 +1,17 @@
 package org.example.uberreviewservice.services;
 
-import jakarta.transaction.Transactional;
-import org.example.uberreviewservice.models.Booking;
-import org.example.uberreviewservice.models.Driver;
 import org.example.uberreviewservice.models.Review;
-import org.example.uberreviewservice.repositories.BookingRepository;
-import org.example.uberreviewservice.repositories.DriverRepository;
-import org.example.uberreviewservice.repositories.ReviewRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.rmi.Remote;
-import java.util.*;
+import java.util.List;
 
 @Service
-public class ReviewService  implements CommandLineRunner {
+public interface ReviewService {
+    public Review getReview(Long id);
+    public List<Review> getReviews();
+    public Review addReview(Review review);
+    public Review updateReview(Review review);
+    public void deleteReview(int id);
+    public void deleteReviews();
 
-    private final ReviewRepository reviewRepository;
-    private final  BookingRepository bookingRepository;
-    private final DriverRepository driverRepository;
-    public ReviewService(ReviewRepository reviewRepository , BookingRepository bookingRepository, DriverRepository driverRepository) {
-        this.reviewRepository = reviewRepository;
-        this.bookingRepository = bookingRepository;
-        this.driverRepository = driverRepository;
-    }
-
-    @Override
-    @Transactional
-    public void run(String... args) throws Exception {
-        System.out.println("**********************************");
-//        Review r = Review.builder()  // by this line we are creating the object to insert
-//                .content("This is a review21")
-//                .rating((double) 22)
-//                .build();
-////        reviewRepository.deleteById(2L);
-//        Booking b = Booking.builder()
-//                            .startTime(new Date())
-//                            .review(r)
-//                            .build();
-//
-////        reviewRepository.save(r);  // since we already use cascade property so no need to explicitly
-//                                   // mention which one repository have to be saved first in database
-//        bookingRepository.save(b);
-
-//        Booking booking = bookingRepository.findByIdAndDriverId(1L, 1L) ;
-//        System.out.println("---->" + booking.getTotalDistance());
-
-//        List<Booking> bookings = bookingRepository.findByDriverId(1L) ;
-//        for (Booking booking : bookings) {
-//            System.out.println("---> " + booking);
-//        }
-        List<Long> driversId = new ArrayList<>(Arrays.asList(1L, 2L, 3L, 4L, 5L));
-        List<Driver> driverList = driverRepository.findAllByIdIn(driversId) ;
-//        List<Booking> bookingList = bookingRepository.findAllByDriverIn(driverList) ;
-        for(Driver driver : driverList){
-            // this will execute again N+1 Querry even if you have used @transaction and fetch=subselect in driver entity
-//            List<Booking> bookingList =  (bookingRepository.findByDriverId(driver.getId()));
-//            for(Booking booking : bookingList){
-//                System.out.println(booking.getId());
-//            }
-
-            List<Booking> bookings = driver.getBookings();
-            for(Booking booking : bookings){
-                System.out.println(booking.getId());
-            }
-        }
-
-
-    }
 }
